@@ -3,6 +3,8 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
-GET     /todos          controllers.TodoListController.getAll()
+GET       /todos          controllers.TodoListController.getAll()
 
-GET     /todos/:id     controllers.TodoListController.getById(id: Long)
+GET       /todos/:id     controllers.TodoListController.getById(id: Long)
+
+POST      /todos          controllers.TodoListController.addItem()

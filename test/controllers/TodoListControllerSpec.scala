@@ -10,7 +10,7 @@ class TodoListControllerSPec extends PlaySpec with GuiceOneAppPerTest {
 
   "TodoListController GET" must {
 
-    "can access to [/todos] by GET method" in {
+    "be able to access to [/todos] by GET method" in {
       val request = FakeRequest(GET, "/todos")
       val response = route(app, request).get
 
@@ -18,7 +18,7 @@ class TodoListControllerSPec extends PlaySpec with GuiceOneAppPerTest {
       contentType(response) mustBe Some("application/json")      
     }
 
-    "should return one item if item is found when accessing to [/todos/{id}] by GET method" in {
+    "be returned one item if item is found when accessing to [/todos/{id}] by GET method" in {
       val request = FakeRequest(GET, "/todos/1")
       val response = route(app, request).get
 
@@ -31,11 +31,30 @@ class TodoListControllerSPec extends PlaySpec with GuiceOneAppPerTest {
       )
     }
     
-    "should return Not_Found if item is not found when accessing to [/todos/{id}] by GET method" in {
+    "be returned Not_Found if item is not found when accessing to [/todos/{id}] by GET method" in {
       val request = FakeRequest(GET, "/todos/3")
       val response = route(app, request).get
 
       status(response) mustBe NOT_FOUND
+    }
+  }
+
+  "TodoListController POST" must {
+
+    "be able to access to [/todos] by POST method" in {
+      val request = FakeRequest(POST, "/todos")
+        .withJsonBody(Json.obj("description" -> "I want to add new item."))
+      val response = route(app, request).get
+
+      status(response) mustBe CREATED
+    }
+
+    "be returned Bad_Request if request body is invalid when accessing to [/todos] by POST method" in {
+      val request = FakeRequest(POST, "/todos")
+        .withJsonBody(Json.obj("notExist" -> "This key is not exist"))
+      val response = route(app, request).get
+
+      status(response) mustBe BAD_REQUEST
     }
   }
 }
