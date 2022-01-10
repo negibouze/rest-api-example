@@ -13,7 +13,8 @@ class TodoListControllerSPec extends PlaySpec with GuiceOneAppPerTest {
       val request = FakeRequest(GET, "/todos")
       val response = route(app, request).get
 
-      status(response) mustBe NO_CONTENT      
+      status(response) mustBe OK
+      contentType(response) mustBe Some("application/json")      
     }
   }
 }
