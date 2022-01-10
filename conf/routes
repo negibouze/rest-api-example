@@ -4,3 +4,5 @@
 # ~~~~
 
 GET     /todos          controllers.TodoListController.getAll()
+
+GET     /todos/:id     controllers.TodoListController.getById(id: Long)
