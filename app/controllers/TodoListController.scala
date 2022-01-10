@@ -54,4 +54,15 @@ class TodoListController @Inject()(
       case None => BadRequest
     }
   }
+
+  def markAsDone(id: Long) = Action {
+    val foundIndex = todoList.indexWhere(_.id == id)
+    foundIndex match {
+      case -1 => NotFound
+      case _ =>
+        val doneItem = todoList(foundIndex).copy(isItDone = true)
+        todoList(foundIndex) = doneItem
+        Accepted(Json.toJson(doneItem))
+    }
+  }
 }

@@ -7,4 +7,6 @@ GET       /todos          controllers.TodoListController.getAll()
 
 GET       /todos/:id     controllers.TodoListController.getById(id: Long)
 
-POST      /todos          controllers.TodoListController.addItem()
+POST      /todos         controllers.TodoListController.addItem()
+
+PATCH     /todos/:id/done    controllers.TodoListController.markAsDone(id: Long)

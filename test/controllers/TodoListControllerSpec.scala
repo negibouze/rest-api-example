@@ -31,7 +31,7 @@ class TodoListControllerSPec extends PlaySpec with GuiceOneAppPerTest {
       )
     }
     
-    "be returned Not_Found if item is not found when accessing to [/todos/{id}] by GET method" in {
+    "be returned Not_Found if item is not found when accessing to [/todos/:id] by GET method" in {
       val request = FakeRequest(GET, "/todos/3")
       val response = route(app, request).get
 
@@ -55,6 +55,29 @@ class TodoListControllerSPec extends PlaySpec with GuiceOneAppPerTest {
       val response = route(app, request).get
 
       status(response) mustBe BAD_REQUEST
+    }
+  }
+
+  "TodoListController PATCH" must {
+
+    "be able to access to [/todos/:id/done] by PATCH method" in {
+      val request = FakeRequest(PATCH, "/todos/2/done")
+      val response = route(app, request).get
+
+      status(response) mustBe ACCEPTED
+      contentType(response) mustBe Some("application/json")      
+      contentAsJson(response) mustBe Json.obj(
+        "id" -> 2,
+        "description" -> "some other value",
+        "isItDone" -> true
+      )
+    }
+
+    "be returned Not_Found if item is not found when accessing to [/todos/:id/done] by PATCH method" in {
+      val request = FakeRequest(PATCH, "/todos/999/done")
+      val response = route(app, request).get
+
+      status(response) mustBe NOT_FOUND
     }
   }
 }
