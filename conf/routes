@@ -11,4 +11,6 @@ POST      /todos         controllers.TodoListController.addItem()
 
 PATCH     /todos/:id/done    controllers.TodoListController.markAsDone(id: Long)
 
+DELETE    /todos/done    controllers.TodoListController.deleteAllDone()
+
 DELETE    /todos/:id   controllers.TodoListController.deleteItem(id: Long)

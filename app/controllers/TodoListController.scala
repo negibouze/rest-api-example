@@ -75,4 +75,9 @@ class TodoListController @Inject()(
         Accepted
     }
   }
+
+  def deleteAllDone() = Action {
+     todoList.filterInPlace(_.isItDone == false)
+     Accepted
+  }
 }
