@@ -65,4 +65,14 @@ class TodoListController @Inject()(
         Accepted(Json.toJson(doneItem))
     }
   }
+
+  def deleteItem(id: Long) = Action {
+    val foundIndex = todoList.indexWhere(_.id == id)
+    foundIndex match {
+      case -1 => NotFound
+      case _ =>
+        todoList.filterInPlace(_.id != id)
+        Accepted
+    }
+  }
 }
