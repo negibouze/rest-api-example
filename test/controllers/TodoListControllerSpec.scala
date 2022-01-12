@@ -80,4 +80,28 @@ class TodoListControllerSPec extends PlaySpec with GuiceOneAppPerTest {
       status(response) mustBe NOT_FOUND
     }
   }
+
+  "TodoListController DELETE" must {
+
+    "be able to access to [/todos/done] by DELETE method" in {
+      val request = FakeRequest(DELETE, "/todos/done")
+      val response = route(app, request).get
+
+      status(response) mustBe ACCEPTED
+    }
+
+    "be able to access to [/todos/:id] by DELETE method" in {
+      val request = FakeRequest(DELETE, "/todos/2")
+      val response = route(app, request).get
+
+      status(response) mustBe ACCEPTED
+    }
+
+    "be returned Not_Found if item is not found when accessing to [/todos/:id] by DELETE method" in {
+      val request = FakeRequest(DELETE, "/todos/999")
+      val response = route(app, request).get
+
+      status(response) mustBe NOT_FOUND
+    }
+  }
 }
